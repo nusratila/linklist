@@ -1,13 +1,26 @@
 #include "list.h"
 
+void displayll(node* h)
+{
+
+    if(h)
+    {
+        cout<<h->data<<"-";
+        displayll(h->next);
+    }
+}
 
 int main()
 {
     list object;
     object.build();    //builds a LLL
     object.display();  //displays the LLL
-    object.remove_last_2_Count_total_2();
+    object.showtaildata();
+    int result= object.remove_last_2_Count_total();
     object.display();
+    object.showtaildata();
+    cout<<"result "<<result<<endl;
+    //displayll(result);
     /*
     node * evenll;
     cout<<"before"<<&evenll<<endl;
@@ -45,5 +58,5 @@ cout << "number of nodes : " << count << endl;
    // object.display();  //displays the LLL again!
 
 
-   // return 0;
+    return 0;
 }

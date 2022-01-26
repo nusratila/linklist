@@ -61,17 +61,30 @@ void list::build()
 }
 void list::display()
 {
-    cout<<"Link List: ";
+
     node* th = head;
-    while(th->next)
+    if(th)
     {
-        cout<<th->data<<"->";
-        th = th->next;
+        cout<<"Link List: ";
+         while(th->next)
+        {
+            cout<<th->data<<"->";
+            th = th->next;
+        }
+        cout<<th->data<<endl;
     }
-    cout<<th->data<<endl;
+    else
+        cout<<"link list is empty"<<endl;
+
 }
 
-
+void list::showtaildata()
+{
+    if(tail)
+        cout<<"tail data: "<<tail->data<<endl;
+    else
+        cout<<"tail is NULL"<<endl;
+}
 
 //Count the number of items in the list that are the same as the first node  and return the count.
 //wrapper
@@ -189,45 +202,103 @@ int list :: remove_last_2_Count_total_2()
 {
     if(!head)
         return 0;
-    /*
-    if(!head->next)
-    {
-        if(head->data == 2)
-        {
-            delete head;
-            head = NULL;
-        }
-        return 0;
-    }
-*/
+
+
+
     int count = 0;
-    bool is_found = false;
-    node * previous;
-    return remove_last_2_Count_total_2(head,previous,count,is_found);
+    bool delete2 = false;
+    //node * previous;
+    return remove_last_2_Count_total_2(head,count,delete2);
 }
 
 
-int list :: remove_last_2_Count_total_2(node * & head, node * &previous,int & count, bool & is_found)
+int list :: remove_last_2_Count_total_2(node * & head, int & count, bool & delete2)
 {
     if(!head)
         return count;
-    if(head->data == 2)
+    else if(!head->next)
     {
-        ++count;
-        is_found = true;
+        if(head->data==2)
+        {
+            delete head;
+            head=NULL;
+            delete2 = true;
+        }
+        return count;
+
     }
-    remove_last_2_Count_total_2(head->next,head,count,is_found);
-    if(head->data == 2 && is_found)
+    else
     {
+        if(head->data == 2)
+        ++count;
+        remove_last_2_Count_total_2(head->next,count,delete2);
+
+    }
+//    if(head->next->next)
+  //      remove_last_2_Count_total_2(head->next,count,delete2);
+
+    if(head->next->data == 2 && (!delete2))
+    {
+        node * temp = head->next;
+        cout<<"deleting : "<<head->next->data<<endl;
+        cout<<"prev: "<<head->data<<endl;
+        //previous->next = head;
+        head->next= head->next->next;
+        delete temp;
+        temp = NULL;
+        //count = count - 1;
+        delete2 = true;
+    }
+    return count;
+}
+
+int list :: remove_last_2_Count_total()
+{
+    if(!head)
+        return 0;
+    bool delete2 = false;
+    //node * previous;
+    return remove_last_2_Count_total(head,delete2);
+}
+
+
+int list :: remove_last_2_Count_total(node * & head, bool & delete2)
+{
+    int count =0;
+    tail = NULL;
+
+    if(!head->next)
+    {
+        if(head->data==2)
+        {
+            delete head;
+            head=NULL;
+            delete2 = true;
+        }
+        else
+        {
+            tail = head;
+        }
+        return 0;
+    }
+    else
+    {
+        tail = head;
+    }
+
+    if(head->data == 2)
+        count=1;
+    count+=remove_last_2_Count_total(head->next,delete2);
+
+    if(head->data == 2 && (!delete2))
+    {
+
         node * temp = head;
-        cout<<"deleting : "<<head->data<<endl;
-        cout<<"prev: "<<previous->data<<endl;
-        previous->next = head;
         head= head->next;
         delete temp;
         temp = NULL;
         count = count - 1;
-        is_found = false;
+        delete2 = true;
     }
     return count;
 }
@@ -274,7 +345,7 @@ node* list ::copyeven( node* &head)
 
 void list::copyeven2(node*& evenll)
 {
-    if(!9)
+    if(!head)
         return ;
     copyeven2(evenll,head);
 
@@ -307,4 +378,39 @@ void list::copyeven2(node*& evenll,node*& head)
 
     copyeven2(evenll,head->next);
 }
+node* list:: copyeven3()
+{
+    node * result =NULL;
+    node * temp = NULL;
+    if(!head)
+        return result;
+    copyeven3(head,result,temp);
+    return result;
+}
+void list:: copyeven3(node*&head,node*&result,node*&temp)
+{
+     if(!head)
+        return ;
+    if(head->data%2==0)
+    {
+        if(result)
+        {
 
+            temp->next = new node;
+            temp = temp->next;
+            temp->data = head->data;
+            temp->next = NULL;
+
+        }
+        else
+        {
+            result = new node;
+            result->data = head->data;
+            result->next = NULL;
+            temp = result;
+        }
+    }
+
+    copyeven3(head->next,result,temp);
+    return;
+}

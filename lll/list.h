@@ -19,6 +19,7 @@ class list
      ~list();			//supplied
      void build();     		//supplied
      void display();  		//supplied
+     void showtaildata();
 
     /* *****************YOUR TURN! ******************************** */
     //Write your function prototype here:
@@ -34,10 +35,10 @@ class list
 
     int remove_1st_replace_last_count_total();
     int remove_1st_replace_last_count_total(node * &head, int & count);
-
-
+    int remove_last_2_Count_total();
+    int remove_last_2_Count_total(node * & head, bool & delete2);
     int remove_last_2_Count_total_2();
-    int remove_last_2_Count_total_2(node * & head, node * &previous,int & count, bool & is_found);
+    int remove_last_2_Count_total_2(node * & head, int & count, bool & is_found);
 
 
     node * copyeven();
@@ -45,6 +46,8 @@ class list
 
     void copyeven2(node*&);
     void copyeven2(node*&,node*&);
+    node* copyeven3();
+    void copyeven3(node*&,node*&,node*&);
    private:		//notice there is both a head and a tail!
       node * head;
       node * tail;
