@@ -48,6 +48,11 @@ class list
     void copyeven2(node*&,node*&);
     node* copyeven3();
     void copyeven3(node*&,node*&,node*&);
+
+    int print_unique_data();
+    int print_unique_data(node *& head);
+    int find_unique(int data);
+    int find_unique(int data, node * & head);
    private:		//notice there is both a head and a tail!
       node * head;
       node * tail;

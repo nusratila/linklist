@@ -414,3 +414,43 @@ void list:: copyeven3(node*&head,node*&result,node*&temp)
     copyeven3(head->next,result,temp);
     return;
 }
+
+int list::print_unique_data()
+{
+    if(!head)
+        return 0;
+    print_unique_data(head);
+}
+
+
+int list::print_unique_data(node *& head)
+{
+    if(!head)
+        return 0;
+    //int countdata = 0;
+    int data = head->data;
+    int countdata  = find_unique(data);
+  //  if(countdata==1)
+//        cout<<"unique: "<<head->data<<endl;
+    cout<<"this data "<<head->data<<" occurs "<<countdata<< " times\n";
+
+    print_unique_data(head->next);
+
+}
+int list::find_unique(int data)
+{
+    return find_unique(data,head);
+}
+
+int list::find_unique(int  data, node * & head)
+{
+    int countdata = 0 ;
+    if(!head)
+        return 0;
+    if(head->data == data)
+        countdata++;
+    countdata+=find_unique(data,head->next);
+    return countdata;
+
+}
+

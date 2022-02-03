@@ -16,10 +16,9 @@ int main()
     object.build();    //builds a LLL
     object.display();  //displays the LLL
     object.showtaildata();
-    int result= object.remove_last_2_Count_total();
-    object.display();
-    object.showtaildata();
-    cout<<"result "<<result<<endl;
+    int result= object.print_unique_data();
+    //object.showtaildata();
+    //cout<<"result "<<result<<endl;
     //displayll(result);
     /*
     node * evenll;
